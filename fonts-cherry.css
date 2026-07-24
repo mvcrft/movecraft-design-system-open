@@ -1,0 +1,24 @@
+/* =============================================================
+   MOVECRAFT (open) — fonts-cherry.css  (display alternate)
+   Load INSTEAD of fonts.css for the Cherry Swash display look:
+
+       theme-movecraft.css → fonts-cherry.css → components.css → …
+
+   Display = Cherry Swash (upright slab, swash terminals)  ·
+   Body = Hanken Grotesk
+
+   Cherry Swash is UPRIGHT — the display headings won't lean like the
+   default (Newsreader). That's intentional: a more grounded, decorative
+   look. Requires internet (fonts.gstatic.com).
+
+   Uses @import so the browser picks the correct unicode subset;
+   for offline / strict-CSP contexts, self-host the woff2 instead.
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@400;700&family=Hanken+Grotesk:wght@400..700&display=swap');
+
+:root {
+  --font-title: 'Cherry Swash', Georgia, 'Times New Roman', serif;
+  --font-body:  'Hanken Grotesk', -apple-system, BlinkMacSystemFont,
+                'Helvetica Neue', Arial, sans-serif;
+}

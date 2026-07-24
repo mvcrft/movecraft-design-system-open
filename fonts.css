@@ -1,0 +1,35 @@
+/* =============================================================
+   MOVECRAFT (open) — fonts.css
+   Open-licensed web fonts via Google Fonts. Load after
+   theme-movecraft.css and before your own styles:
+
+       theme-movecraft.css → fonts.css → components.css → …
+
+   Display = Newsreader (italic)   ·   Body = Hanken Grotesk
+   Alternate display: load `fonts-cherry.css` instead (Cherry Swash).
+
+   Requires internet (fonts.gstatic.com); for offline / strict-CSP
+   contexts, self-host these woff2 and point the src at local copies.
+
+   NOTE: Newsreader is served ITALIC but registered font-style:normal,
+   so it renders slanted everywhere --font-title is used, with no
+   component changes (the display face is treated as pre-slanted).
+   ============================================================= */
+
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url(https://fonts.gstatic.com/s/hankengrotesk/v12/ieVn2YZDLWuGJpnzaiwFXS9tYtpd59CxCis4.woff2) format('woff2');
+}
+@font-face {
+  /* the italic Newsreader file, registered normal-style on purpose */
+  font-family: 'Newsreader';
+  font-style: normal; font-weight: 400 600; font-display: swap;
+  src: url(https://fonts.gstatic.com/s/newsreader/v26/cY9CfjOCX1hbuyalUrK439vCjohCBJWxZA.woff2) format('woff2');
+}
+
+:root {
+  --font-title: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-body:  'Hanken Grotesk', -apple-system, BlinkMacSystemFont,
+                'Helvetica Neue', Arial, sans-serif;
+}

@@ -1,0 +1,210 @@
+/* =============================================================
+   MOVECRAFT — components.css
+   Reusable UI primitives built on the tokens in theme-movecraft.css.
+   Framework-agnostic (no dependency on the deck engine). Load after
+   theme-movecraft.css + fonts.css:
+       theme-movecraft.css → fonts.css → components.css → [your styles]
+   Conventions: sharp corners (no radius except round icon buttons),
+   warm dashed rules, crimson emphasis, gold micro-labels, fast
+   0.12–0.15s transitions.
+   ============================================================= */
+
+/* ---------- micro-label (uppercase gold eyebrow) ---------- */
+.mv-label {
+  font-family: var(--font-body);
+  font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ---------- buttons ---------------------------------------- */
+.mv-btn {
+  display: inline-flex; align-items: center; gap: .5ch;
+  font-family: var(--font-body); font-size: .8rem; letter-spacing: .08em;
+  text-transform: uppercase; padding: 10px 18px;
+  background: var(--accent); color: var(--paper);
+  border: 1px solid var(--accent); border-radius: 0;
+  cursor: pointer; text-decoration: none;
+  transition: background .14s ease, border-color .14s ease, color .14s ease;
+}
+.mv-btn:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+.mv-btn--ghost { background: transparent; color: var(--accent); }
+.mv-btn--ghost:hover { background: var(--tint); color: var(--accent-dark); }
+.mv-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* round icon button (theme toggle, appendix mark, etc.) */
+.mv-icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--rule-strong); background: var(--surface);
+  color: var(--muted); cursor: pointer;
+  transition: color .14s ease, border-color .14s ease;
+}
+.mv-icon-btn:hover,
+.mv-icon-btn:focus-visible { color: var(--accent); border-color: var(--accent); }
+
+/* ---------- links ------------------------------------------ */
+.mv-link {                       /* inline: gold, dashed underline */
+  color: var(--gold); text-decoration: none;
+  border-bottom: 1px dashed var(--gold);
+  transition: color .14s ease, border-color .14s ease;
+}
+.mv-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.mv-link--label {                /* uppercase tracked link (back · pdf ↓) */
+  border-bottom: 0; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
+}
+
+/* ---------- panel / surface -------------------------------- */
+.mv-panel {
+  background: var(--surface); border: 1px solid var(--rule-strong);
+  padding: clamp(18px, 2.4vw, 26px);
+}
+
+/* ---------- callout (dark tooltip chip) -------------------- */
+.mv-callout {
+  background: var(--ink); color: var(--paper);
+  font-size: .78rem; line-height: 1.45; padding: 8px 12px; max-width: 240px;
+}
+
+/* ---------- pull-quote ------------------------------------- */
+.mv-quote {
+  margin: 0; padding-left: 18px; border-left: 2px solid var(--accent);
+  font-size: clamp(1.1rem, 2vw, 1.4rem); line-height: 1.5;
+  color: var(--ink); max-width: 40ch;
+}
+.mv-quote__cite {
+  display: block; margin-top: 10px; font-style: normal;
+  font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold);
+}
+
+/* ---------- tag / chip ------------------------------------- */
+.mv-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid var(--rule-strong); background: var(--paper);
+  color: var(--ink); font-size: .72rem; padding: 4px 9px;
+}
+
+/* ---------- cards (dashboard/deck parity) ------------------ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(240px, 26vw, 300px), 1fr));
+  gap: clamp(12px, 1.4vw, 16px);
+}
+.mv-card {
+  position: relative;
+  background: var(--surface); border: 1px solid var(--rule);
+  padding: clamp(16px, 2.2vh, 22px) clamp(18px, 2vw, 24px);
+}
+.mv-card--accent { border-color: var(--accent); }
+.mv-card--gold   { border-color: var(--gold); }
+.mv-card__label {
+  font-size: clamp(11px, 1vw, 12px); text-transform: uppercase;
+  letter-spacing: .1em; color: var(--gold); margin-bottom: 6px;
+}
+.mv-card__title {
+  font-size: clamp(17px, 1.5vw, 20px); font-weight: bold;
+  color: var(--ink); line-height: 1.2; margin-bottom: 6px;
+}
+.mv-card__body {
+  font-size: clamp(13px, 1.15vw, 15px); color: var(--muted); line-height: 1.45;
+}
+
+/* status badges */
+.mv-badge {
+  display: inline-block; margin-top: 10px;
+  font-size: clamp(10px, .9vw, 11px); font-weight: 600;
+  text-transform: uppercase; letter-spacing: .08em; padding: 2px 8px;
+}
+.mv-badge--complete  { background: var(--status-complete-bg);  color: var(--status-complete-fg); }
+.mv-badge--scheduled { background: var(--status-scheduled-bg); color: var(--status-scheduled-fg); }
+.mv-badge--pending   { background: var(--status-pending-bg);   color: var(--status-pending-fg); }
+.mv-badge--gold      { background: var(--status-gold-bg);      color: var(--gold); }
+
+/* The animated "side tab" variant (.mv-card--bar) lives in the deck
+   framework's deck.css — its reveal is tied to slide activation. */
+
+
+/* =============================================================
+   INTERACTIVE CONTROLS
+   Distilled from the circle-of-fifths instrument. Styles here;
+   optional behavior in components.js (segmented toggle, slider
+   fill + readout, dismissible editor). All keyboard-focusable.
+   ============================================================= */
+
+/* ---------- segmented control (piano · harpsichord …) ------ */
+.mv-segmented { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.mv-seg-btn {
+  font-family: var(--font-body); font-size: .78rem; letter-spacing: .04em;
+  padding: 9px 16px; background: var(--surface); color: var(--ink);
+  border: 1px solid var(--rule-strong); border-radius: 0; cursor: pointer;
+  transition: background .12s ease, color .12s ease, border-color .12s ease;
+}
+.mv-seg-btn:hover { border-color: var(--ink); }
+.mv-seg-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mv-seg-btn.is-active,
+.mv-seg-btn[aria-pressed="true"] {
+  background: var(--ink); color: var(--paper); border-color: var(--ink);
+}
+
+/* ---------- slider (tempo · volume) ------------------------ */
+.mv-slider { display: inline-flex; align-items: center; gap: 12px; }
+.mv-slider__label {
+  font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold);
+}
+.mv-slider__val {
+  font-variant-numeric: tabular-nums; color: var(--ink); font-size: .82rem; min-width: 3ch;
+}
+.mv-range {
+  -webkit-appearance: none; appearance: none;
+  width: 160px; height: 4px; border-radius: 0; cursor: pointer;
+  /* crimson fill to the left of the thumb; components.js updates the % */
+  background: linear-gradient(to right,
+    var(--accent) var(--mv-fill, 50%), var(--rule-strong) var(--mv-fill, 50%));
+}
+.mv-range::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 16px; height: 16px; border: 0;
+  border-radius: 50%; background: var(--accent);
+}
+.mv-range::-moz-range-thumb {
+  width: 16px; height: 16px; border: 0; border-radius: 50%; background: var(--accent);
+}
+.mv-range:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* ---------- editor panel (dismissible, heavy border) ------- */
+.mv-editor {
+  background: var(--surface); border: 1.5px solid var(--ink);
+  padding: clamp(18px, 2.4vw, 26px); max-width: 760px;
+}
+.mv-editor[hidden] { display: none; }
+.mv-editor__head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  margin-bottom: 6px;
+}
+.mv-editor__title {
+  font-family: var(--font-title); font-synthesis: none; color: var(--accent);
+  text-transform: lowercase; font-weight: 500; font-size: 1.5rem; line-height: 1;
+  margin: 0;   /* kill the UA <h3> margin that stacks on the panel padding */
+}
+.mv-editor__close {
+  background: transparent; border: 0; color: var(--muted); cursor: pointer;
+  font-size: 1.5rem; line-height: 1; padding: 0 4px;
+}
+.mv-editor__close:hover,
+.mv-editor__close:focus-visible { color: var(--accent); }
+.mv-editor__note { color: var(--muted); font-size: .9rem; margin: 0 0 16px; }
+
+/* dashed field where chips are dropped/collected */
+.mv-dropzone {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+  border: 1px dashed var(--rule-strong); padding: 14px; min-height: 56px;
+}
+
+/* ---------- chip (numbered, optionally draggable) ---------- */
+.mv-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  border: 1px solid var(--rule-strong); background: var(--paper); color: var(--ink);
+  font-size: .78rem; padding: 6px 11px; user-select: none;
+}
+.mv-chip__num { color: var(--accent); font-weight: 600; }
+.mv-chip--draggable { cursor: grab; }
+.mv-chip--draggable:active { cursor: grabbing; }
+.mv-chip.is-selected { border-color: var(--accent); background: var(--tint); }

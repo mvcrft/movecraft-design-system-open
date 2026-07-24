@@ -1,0 +1,67 @@
+/* =============================================================
+   MOVECRAFT — theme layer for the deck framework
+   The design system, isolated. This is the ONE file you swap to
+   re-skin a deck: every color, font token, and the dark-mode
+   variant live here. deck.css / deck-nav.css consume these tokens
+   and hardcode nothing.
+
+   Load order:  theme-movecraft.css → fonts.css → deck.css → deck-nav.css
+
+   Warm cream paper, deep crimson accent, editorial gold micro-labels,
+   sharp corners, warm dashed rules. Shared with the Movecraft
+   scheduling site + admin dashboard.
+   ============================================================= */
+
+:root {
+  color-scheme: light;               /* declared so auto-dark can't invert us */
+
+  /* ---- palette ---- */
+  --paper:        #faf8f5;  /* slide background (warm cream)       */
+  --surface:      #ffffff;  /* raised card surface                 */
+  --ink:          #181818;  /* headings / primary text             */
+  --muted:        #767676;  /* secondary / faded text              */
+  --faint:        #949494;  /* meta                                */
+  --accent:       #c4154f;  /* brand crimson — titles, accent bar  */
+  --accent-dark:  #a01040;  /* darker accent (hover)               */
+  --gold:         #8a6835;  /* micro-labels / kickers              */
+  --rule:         #e8e2d9;  /* warm hairline / dashed rules        */
+  --rule-strong:  #d6ccbd;  /* stronger warm border                */
+  --num-faint:    #ddd5c8;  /* editorial numeral, resting          */
+  --tint:         #fff5f8;  /* active / selected tint              */
+  --logo-gray:    #6e6e6e;
+  --blackout:     #000000;  /* presenter blackout overlay          */
+
+  /* ---- status badges (Movecraft dashboard parity) ---- */
+  --status-complete-bg:  #e8f5e9;  --status-complete-fg:  #2e7d32;
+  --status-scheduled-bg: #e8f0fe;  --status-scheduled-fg: #1a56cc;
+  --status-pending-bg:   #f0f0f0;  --status-pending-fg:   #666666;
+  --status-gold-bg:      #fff8e1;  /* gold badge fg uses --gold  */
+
+  /* ---- type (fallbacks only; the active fonts come from fonts.css) ---- */
+  --font-title: Georgia, 'Times New Roman', serif;
+  --font-body:  -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+
+  /* ---- 8px spacing rhythm (shared with the Movecraft sites) ---- */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+  --space-4: 16px; --space-6: 24px; --space-8: 32px;
+  --pad: clamp(24px, 6vw, 96px);   /* slide gutter */
+}
+
+/* ---- dark variant (toggled by .theme-dark on <html>) ---- */
+:root.theme-dark {
+  color-scheme: dark;
+  --paper:        #12100d;
+  --surface:      #1c1915;
+  --ink:          #f2ede4;
+  --muted:        #a49a8c;
+  --faint:        #7a7268;
+  --accent:       #e0325f;
+  --accent-dark:  #c4154f;
+  --gold:         #c79b53;
+  --rule:         #2a251f;
+  --rule-strong:  #3a332a;
+  --num-faint:    #2e2822;
+  --tint:         #241a1e;
+  --logo-gray:    #8a857d;
+}
+:root.theme-dark .deck-footer__logo { filter: invert(.82); }
